@@ -1,5 +1,5 @@
 ## 👋🏻 Family Note API
-- 부모 자녀 간의 소통 창구 서비스, Family Note API 입니다.안
+- 부모 자녀 간의 소통 창구 서비스, Family Note API 입니다.
 
 <!-- TODO : SYSTEM ARCHITECTURE DIAGRAM -->
 
