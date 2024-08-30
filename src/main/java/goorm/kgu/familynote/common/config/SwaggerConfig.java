@@ -44,14 +44,14 @@ public class SwaggerConfig {
 
 	private Info apiInfo() {
 		return new Info()
-			.title("SOMEONE API")
+			.title("FAMILY-NOTE API")
 			.description(getDescription());
 	}
 
 	private List<Server> initializeServers() {
 		return PROFILE_SERVER_URL_MAP.entrySet().stream()
 			.filter(entry -> environment.matchesProfiles(entry.getKey()))
-			.map(entry -> openApiServer(entry.getValue(), "SOMEONE API " + entry.getKey().toUpperCase()))
+			.map(entry -> openApiServer(entry.getValue(), "FAMILY-NOTE API " + entry.getKey().toUpperCase()))
 			.collect(Collectors.toList());
 	}
 
@@ -73,7 +73,7 @@ public class SwaggerConfig {
 
 	private String getDescription() {
 		return format("""
-				부모 자녀 간의 소통 창구 서비스, SOMEONE API 입니다.\n\n
+				부모 자녀 간의 소통 창구 서비스, FAMILY-NOTE API 입니다.\n\n
 				로그인 API를 통해 액세스 토큰을 발급 받고 헤더에 값을 넣어주세요 . \n\n
 				별다른 절차 없이 API를 사용하실 수 있습니다.\n\n
 				""");

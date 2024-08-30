@@ -8,7 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
 
-@EntityScan(basePackages = "goorm.kgu.someone")
+@EntityScan(basePackages = "goorm.kgu.familynote")
 @EnableJpaRepositories(basePackages = "goorm.kgu.familynote")
 public class JpaConfig {
 
