@@ -10,9 +10,10 @@
 ## 👨🏻‍💻 Developer
 <div align=center>
 
-| 이한음 |                                                                 전민주                                                                  |
-|:---:|:------------------------------------------------------------------------------------------------------------------------------------:|
+| 이한음 | 전민주 |
+|:---:|:---:|
 |  <a href="https://github.com/LeeHanEum"> <img src="https://avatars.githubusercontent.com/u/103233513?v=4" width=100px alt="_"/> </a> | <a href="https://github.com/mingmingmon"> <img src="https://avatars.githubusercontent.com/u/96719969?v=4" width=100px alt="_"/> </a> |
-| **Server** |                                                              **Server**                                                              |
+| **Server** | **Server** |
 
 </div>
+
