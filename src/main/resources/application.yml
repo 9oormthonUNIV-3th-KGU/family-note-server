@@ -1,8 +1,8 @@
 spring:
   application:
-    name: someone-server
+    name: family-note-server
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:someone}?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:family_note}?useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,3 +13,12 @@ spring:
       jdbc:
         time_zone: Asia/Seoul
     defer-datasource-initialization: true
+    show-sql: true
+    open-in-view: false
+
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha

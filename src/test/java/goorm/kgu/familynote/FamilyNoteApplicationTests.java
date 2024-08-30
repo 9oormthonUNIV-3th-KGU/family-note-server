@@ -1,10 +1,10 @@
-package goorm.kgu.someone;
+package goorm.kgu.familynote;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SomeoneApplicationTests {
+class FamilyNoteApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package goorm.kgu.someone;
+package goorm.kgu.familynote;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SomeoneApplication {
+public class FamilyNoteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SomeoneApplication.class, args);
+		SpringApplication.run(FamilyNoteApplication.class, args);
 	}
 
 }
