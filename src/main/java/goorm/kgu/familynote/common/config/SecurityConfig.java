@@ -6,11 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -34,6 +32,7 @@ public class SecurityConfig {
 			)
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(SWAGGER_PATTERNS).permitAll()
+				.requestMatchers(STATIC_RESOURCES_PATTERNS).permitAll()
 				.anyRequest().authenticated()
 			)
 			.build();
@@ -45,15 +44,11 @@ public class SecurityConfig {
 		"/v3/api-docs/**",
 	};
 
-	@Bean
-	public WebSecurityCustomizer configure() {
-		return (web) -> web.ignoring()
-			.requestMatchers(
-				new AntPathRequestMatcher("/img/**"),
-				new AntPathRequestMatcher("/css/**"),
-				new AntPathRequestMatcher("/js/**")
-			);
-	}
+	private static final String[] STATIC_RESOURCES_PATTERNS = {
+		"/img/**",
+		"/css/**",
+		"/js/**"
+	};
 
 	CorsConfigurationSource corsConfigurationSource() {
 		return request -> {
