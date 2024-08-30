@@ -7,7 +7,7 @@
 
 <!-- TODO : ENTITY-RELATION DIAGRAM -->
 
-## Developer
+## 👨🏻‍💻 Developer
 <div align=center>
 
 | 이한음 | 이한음 |
