@@ -33,8 +33,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_REPO }}/familynote .
-          docker push ${{ secrets.DOCKER_REPO }}/familynote
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/familynote .
+          docker push ${{ secrets.DOCKER_USERNAME }}/familynote
 
   deploy:
     needs: build
