@@ -46,7 +46,7 @@ jobs:
         with:
           host: ${{ secrets.NCP_HOST }}
           username: ${{ secrets.NCP_USERNAME }}
-          key: ${{ secrets.NCP_KEY }}
+          password: ${{ secrets.NCP_PASSWORD }}
           port: ${{ secrets.NCP_PORT }}
           script: |
             sudo docker compose -f /root/docker-compose.yml pull
