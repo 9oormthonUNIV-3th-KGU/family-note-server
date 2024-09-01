@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     name: build image
-    
+
     steps:
       - name: get repo from github
         uses: actions/checkout@v3
@@ -18,24 +18,24 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          
+
       - name: Gradle Ready
         run: chmod +x gradlew
 
       - name: Gradle Build
         run: ./gradlew clean build -x test
-      
+
       - name: Docker Build and Push
         run: |
-          docker login ${{ secrets.DOCKER_REPO }} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REPO }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker build -t ${{ secrets.DOCKER_REPO }}/family-note-api .
           docker push ${{ secrets.DOCKER_REPO }}/family-note-api
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    steps: 
-      - name : Deploy to NCP
+    steps:
+      - name: Deploy to NCP
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.NCP_HOST }}
