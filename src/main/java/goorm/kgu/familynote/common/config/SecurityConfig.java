@@ -4,20 +4,28 @@ import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import goorm.kgu.familynote.common.auth.application.UserDetailService;
+import goorm.kgu.familynote.common.auth.filter.TokenAuthenticationFilter;
+import goorm.kgu.familynote.common.auth.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+	private final TokenProvider tokenProvider;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,6 +41,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers(SWAGGER_PATTERNS).permitAll()
 				.requestMatchers(STATIC_RESOURCES_PATTERNS).permitAll()
+				.requestMatchers(PERMIT_ALL_PATTERNS).permitAll()
 				.anyRequest().authenticated()
 			)
 			.build();
@@ -50,6 +59,11 @@ public class SecurityConfig {
 		"/js/**"
 	};
 
+	private static final String[] PERMIT_ALL_PATTERNS = {
+		"/api/v1/users",
+		"/api/v1/login",
+	};
+
 	CorsConfigurationSource corsConfigurationSource() {
 		return request -> {
 			CorsConfiguration config = new CorsConfiguration();
@@ -58,5 +72,26 @@ public class SecurityConfig {
 			config.setAllowCredentials(true);
 			return config;
 		};
+	}
+
+	@Bean
+	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+		return new TokenAuthenticationFilter(tokenProvider);
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(
+		BCryptPasswordEncoder bCryptPasswordEncoder,
+		UserDetailService userDetailService
+	){
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userDetailService);
+		authProvider.setPasswordEncoder(bCryptPasswordEncoder);
+		return new ProviderManager(authProvider);
+	}
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }
