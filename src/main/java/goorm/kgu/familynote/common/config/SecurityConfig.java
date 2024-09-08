@@ -62,6 +62,7 @@ public class SecurityConfig {
 	private static final String[] PERMIT_ALL_PATTERNS = {
 		"/api/v1/users",
 		"/api/v1/login",
+		"/api/v1/family/**"
 	};
 
 	CorsConfigurationSource corsConfigurationSource() {

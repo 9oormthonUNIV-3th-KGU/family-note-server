@@ -40,7 +40,7 @@ public class LoginController {
 		),
 		@ApiResponse(
 			responseCode = "404",
-			description = "회원을 찾을 수 없습니다.",
+			description = "유저를 찾을 수 없습니다.",
 			content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
 		)
 	})

@@ -3,16 +3,20 @@ package goorm.kgu.familynote.domain.user.presentation;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import goorm.kgu.familynote.domain.user.application.UserService;
 import goorm.kgu.familynote.domain.user.presentation.request.UserCreateRequest;
+import goorm.kgu.familynote.domain.user.presentation.response.UserListResponse;
 import goorm.kgu.familynote.domain.user.presentation.response.UserPersistResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,11 +32,11 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 
-	@Operation(summary = "회원 생성", description = "회원을 생성합니다.")
+	@Operation(summary = "유저 생성", description = "유저를 생성합니다.")
 	@ApiResponses({
 		@ApiResponse(
 			responseCode = "201",
-			description = "회원 생성 성공",
+			description = "유저 생성 성공",
 			content = @Content(schema = @Schema(implementation = UserPersistResponse.class))
 		)
 	})
@@ -45,5 +49,20 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 
+	@Operation(summary = "유저 검색", description = "닉네임 기반으로 유저를 검색합니다.")
+	@ApiResponses({
+		@ApiResponse(
+			responseCode = "200",
+			description = "유저 검색 성공",
+			content = @Content(schema = @Schema(implementation = UserListResponse.class))
+		)
+	})
+	@GetMapping
+	public ResponseEntity<UserListResponse> searchUserByNickname(
+		@Parameter(description = "닉네임", example = "주현", required = true) @RequestParam String nickname
+	) {
+		UserListResponse response = userService.getUsersByNickname(nickname);
+		return ResponseEntity.ok(response);
+	}
 
 }
