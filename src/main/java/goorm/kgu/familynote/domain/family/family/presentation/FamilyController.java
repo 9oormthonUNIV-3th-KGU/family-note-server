@@ -13,4 +13,5 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "Family", description = "가족 그룹 관련 api / 담당자 : 이한음")
 public class FamilyController {
 	private final FamilyService familyService;
+
 }
