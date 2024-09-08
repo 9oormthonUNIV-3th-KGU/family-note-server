@@ -5,7 +5,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import goorm.kgu.familynote.common.domain.BaseTimeEntity;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.user.domain.User;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
