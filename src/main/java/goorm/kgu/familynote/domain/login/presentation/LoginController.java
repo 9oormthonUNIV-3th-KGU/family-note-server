@@ -19,10 +19,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "로그인", description = "로그인 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@Tag(name = "Login", description = "로그인 api / 담당자 : 이한음")
 public class LoginController {
 	private final LoginService loginService;
 
