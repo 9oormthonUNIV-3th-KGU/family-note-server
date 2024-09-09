@@ -41,7 +41,7 @@ public class UserController {
 		)
 	})
 	@ResponseStatus(CREATED)
-	@PostMapping
+	@PostMapping("/signup")
 	public ResponseEntity<UserPersistResponse> createUser(
 		@Valid @RequestBody UserCreateRequest request
 	) {
@@ -59,7 +59,7 @@ public class UserController {
 	})
 	@GetMapping
 	public ResponseEntity<UserListResponse> searchUserByNickname(
-		@Parameter(description = "닉네임", example = "주현", required = true) @RequestParam String nickname
+		@Parameter(description = "닉네임", example = "길동", required = true) @RequestParam String nickname
 	) {
 		UserListResponse response = userService.getUsersByNickname(nickname);
 		return ResponseEntity.ok(response);

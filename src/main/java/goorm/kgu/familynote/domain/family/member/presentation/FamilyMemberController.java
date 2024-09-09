@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.domain.family.family.presentation.response.FamilyPersistResponse;
 import goorm.kgu.familynote.domain.family.member.application.FamilyMemberService;
-import goorm.kgu.familynote.domain.family.member.domain.FamilyMember;
 import goorm.kgu.familynote.domain.family.member.presentation.request.FamilyMemberCreateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

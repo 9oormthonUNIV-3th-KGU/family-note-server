@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record UserCreateRequest(
-	@Schema(description = "닉네임", example = "umm_programer", requiredMode = REQUIRED)
+	@Schema(description = "닉네임", example = "홍길동", requiredMode = REQUIRED)
 	@NotNull
 	String nickname,
 
