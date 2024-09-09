@@ -4,6 +4,7 @@ import goorm.kgu.familynote.common.domain.BaseTimeEntity;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.family.member.domain.FamilyMember;
 import goorm.kgu.familynote.domain.user.domain.User;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,6 +29,7 @@ public class BaseQuestion extends BaseTimeEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String content;
 
     public static BaseQuestion create(String content) {
