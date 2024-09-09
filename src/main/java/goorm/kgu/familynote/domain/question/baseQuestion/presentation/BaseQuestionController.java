@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/baseQuestion")
+@RequestMapping("/api/v1/question/base")
 @Tag(name = "Base Question", description = "기본 질문 관련 api / 담당자 : 전민주")
 public class BaseQuestionController {
     private final BaseQuestionService baseQuestionService;
