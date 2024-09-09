@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoggingAspect {
 
 	@Pointcut(
-		"execution(* goorm.kgu.familynote.domain..api.*Controller.*(..)) || " +
-			"execution(* goorm.kgu.familynote.domain..api.*.*Controller.*(..))"
+		"execution(* goorm.kgu.familynote.domain..presentation.*Controller.*(..)) || " +
+			"execution(* goorm.kgu.familynote.domain..presentation.*.*Controller.*(..))"
 	)
 	private void cut() {
 	}

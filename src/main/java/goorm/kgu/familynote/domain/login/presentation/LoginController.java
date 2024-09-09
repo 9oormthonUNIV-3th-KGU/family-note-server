@@ -19,10 +19,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "로그인", description = "로그인 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@Tag(name = "Login", description = "로그인 api / 담당자 : 이한음")
 public class LoginController {
 	private final LoginService loginService;
 
@@ -40,7 +40,7 @@ public class LoginController {
 		),
 		@ApiResponse(
 			responseCode = "404",
-			description = "회원을 찾을 수 없습니다.",
+			description = "유저를 찾을 수 없습니다.",
 			content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
 		)
 	})

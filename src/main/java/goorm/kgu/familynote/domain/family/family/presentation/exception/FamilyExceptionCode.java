@@ -1,6 +1,5 @@
-package goorm.kgu.familynote.domain.user.presentation.exception;
+package goorm.kgu.familynote.domain.family.family.presentation.exception;
 
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import org.springframework.http.HttpStatus;
@@ -11,9 +10,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum UserExceptionCode implements ExceptionCode {
-	USER_NOT_AUTHENTICATED(FORBIDDEN, "사용자 인증에 실패하였습니다."),
-	USER_NOT_FOUND(NOT_FOUND, "사용자를 찾을 수 없습니다."),
+public enum FamilyExceptionCode implements ExceptionCode {
+	FAMILY_NOT_FOUND(NOT_FOUND, "가족 그룹이 존재하지 않습니다."),
 	;
 
 	private final HttpStatus status;
