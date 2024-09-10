@@ -6,6 +6,7 @@ import goorm.kgu.familynote.domain.family.member.presentation.request.FamilyMemb
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.BaseQuestionCreateRequest;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponse;
+import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,10 +42,10 @@ public class BaseQuestionController {
     })
     @ResponseStatus(CREATED)
     @PostMapping
-    public ResponseEntity<List<BaseQuestionResponse>> createBaseQuestions(
+    public ResponseEntity<BaseQuestionResponseList> createBaseQuestions(
             @Valid @RequestBody List<BaseQuestionCreateRequest> requests
     ) {
-        List<BaseQuestionResponse> response = baseQuestionService.saveBaseQuestions(requests);
+        BaseQuestionResponseList response = baseQuestionService.saveBaseQuestions(requests);
         return ResponseEntity.ok(response);
     }
 

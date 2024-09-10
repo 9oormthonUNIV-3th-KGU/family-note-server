@@ -4,6 +4,7 @@ import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestionRepository;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.BaseQuestionCreateRequest;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponse;
+import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,11 @@ public class BaseQuestionService {
     private final BaseQuestionRepository baseQuestionRepository;
 
     @Transactional
-    public List<BaseQuestionResponse> saveBaseQuestions(List<BaseQuestionCreateRequest> requests) {
-        return requests.stream()
+    public BaseQuestionResponseList saveBaseQuestions(List<BaseQuestionCreateRequest> requests) {
+        List<BaseQuestionResponse> baseQuestionResponseList = requests.stream()
                 .map(this::saveBaseQuestion)
                 .collect(Collectors.toList());
+        return BaseQuestionResponseList.of(baseQuestionResponseList);
     }
 
     private BaseQuestionResponse saveBaseQuestion(BaseQuestionCreateRequest request) {
