@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.domain.question.familyQuestion.application;
 
+import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.family.member.application.FamilyMemberService;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
@@ -11,7 +12,12 @@ import goorm.kgu.familynote.domain.user.application.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +27,7 @@ public class FamilyQuestionService {
     private final BaseQuestionService baseQuestionService;
     private final UserService userService;
 
+    @Transactional
     public FamilyQuestionResponse createFamilyQuestion() {
         /*
         FamilyAnswer 구현 하면서 추가할 세부 로직
@@ -37,6 +44,15 @@ public class FamilyQuestionService {
         familyQuestionRepository.save(familyQuestion);
         return FamilyQuestionResponse.of(familyQuestion);
     }
+    @Transactional
+    public PageableResponse<FamilyQuestionResponse> getFamilyQuestions(int page, int size) {
+        Long userId = userService.me().getId();
+        Family family = familyMemberService.getFamilyByFamilyMember(userId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<FamilyQuestion> familyQuestions = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);
+        Page<FamilyQuestionResponse> familyQuestionResponses = familyQuestions.map(FamilyQuestionResponse::of);
+        return PageableResponse.of(familyQuestionResponses);
+    }
 
     public List<FamilyQuestion> getAllFamilyQuestionsByFamilyId(Long familyId) {
         return familyQuestionRepository.findAllByFamilyId(familyId);
@@ -46,5 +62,9 @@ public class FamilyQuestionService {
         return getAllFamilyQuestionsByFamilyId(familyId).stream()
                 .map(familyQuestion -> familyQuestion.getBaseQuestion().getId())
                 .toList();
+    }
+
+    public Page<FamilyQuestion> getAllFamilyQuestionsByFamilyId(Long familyId, Pageable pageable) {
+        return familyQuestionRepository.findAllByFamilyId(familyId, pageable);
     }
 }

@@ -1,10 +1,6 @@
 package goorm.kgu.familynote.domain.question.familyQuestion;
 
-import goorm.kgu.familynote.domain.family.family.domain.Family;
-import goorm.kgu.familynote.domain.family.family.presentation.response.FamilyPersistResponse;
-import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
-import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.BaseQuestionCreateRequest;
-import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
+import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.question.familyQuestion.application.FamilyQuestionService;
 import goorm.kgu.familynote.domain.question.familyQuestion.presentation.response.FamilyQuestionResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,13 +10,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +43,24 @@ public class FamilyQuestionController {
     @PostMapping
     public ResponseEntity<FamilyQuestionResponse> createFamilyQuestion() {
         FamilyQuestionResponse response = familyQuestionService.createFamilyQuestion();
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "가족 질문 조회", description = "가족 질문을 조회합니다. 생성된 시간 기준 최신순으로 정렬되어 반환합니다.")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "가족 질문 조회 성공",
+                    content = @Content(schema = @Schema(implementation = PageableResponse.class))
+            )
+    })
+    @ResponseStatus(OK)
+    @GetMapping
+    public ResponseEntity<PageableResponse<FamilyQuestionResponse>> getFamilyQuestions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        PageableResponse<FamilyQuestionResponse> response = familyQuestionService.getFamilyQuestions(page, size);
         return ResponseEntity.ok(response);
     }
 

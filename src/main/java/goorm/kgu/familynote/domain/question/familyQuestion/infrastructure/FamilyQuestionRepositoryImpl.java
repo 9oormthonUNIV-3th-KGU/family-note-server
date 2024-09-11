@@ -4,6 +4,8 @@ import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestion
 import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestionRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,5 +26,10 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     @Override
     public List<FamilyQuestion> findAllByFamilyId(Long familyId) {
         return jpaFamilyQuestionRepository.findAllByFamilyId(familyId);
+    }
+
+    @Override
+    public Page<FamilyQuestion> findAllByFamilyId(Long familyId, Pageable pageable) {
+        return jpaFamilyQuestionRepository.findAllByFamilyId(familyId, pageable);
     }
 }
