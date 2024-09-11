@@ -37,7 +37,7 @@ public class BaseQuestionController {
             @ApiResponse(
                     responseCode = "201",
                     description = "기본 질문 등록 성공",
-                    content = @Content(schema = @Schema(implementation = FamilyPersistResponse.class))
+                    content = @Content(schema = @Schema(implementation = BaseQuestionResponseList.class))
             )
     })
     @ResponseStatus(CREATED)
