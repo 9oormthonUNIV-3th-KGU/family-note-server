@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class RandomNumberUtils {
 
-    public static Long getRandomLongInRange(Long max) {
+    public static Integer getRandomIntInRange(int min, int max) {
         Random random = new Random();
-        return random.nextLong(max) + 1;
+        return random.nextInt((max - min)) + min;
     }
 
 }

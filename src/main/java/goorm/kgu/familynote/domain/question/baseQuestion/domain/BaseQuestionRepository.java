@@ -1,6 +1,7 @@
 package goorm.kgu.familynote.domain.question.baseQuestion.domain;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BaseQuestionRepository {
@@ -10,5 +11,7 @@ public interface BaseQuestionRepository {
     Long countBaseQuestions();
 
     Optional<BaseQuestion> findById(Long id);
+
+    List<BaseQuestion> findAll();
 
 }

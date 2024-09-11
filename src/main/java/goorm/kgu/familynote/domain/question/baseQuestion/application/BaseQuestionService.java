@@ -4,6 +4,8 @@ import goorm.kgu.familynote.common.util.RandomNumberUtils;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestionRepository;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.exception.BaseQuestionNotFoundException;
+import goorm.kgu.familynote.domain.question.baseQuestion.presentation.exception.InvalidBaseQuestionCountException;
+import goorm.kgu.familynote.domain.question.baseQuestion.presentation.exception.NoMoreBaseQuestionException;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.BaseQuestionCreateRequest;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
@@ -11,11 +13,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BaseQuestionService {
     private final BaseQuestionRepository baseQuestionRepository;
 
@@ -33,12 +37,24 @@ public class BaseQuestionService {
         return BaseQuestionResponse.of(baseQuestion);
     }
 
-    public BaseQuestion getRandomBaseQuestion() {
-        // 중복되는 질문 없도록 로직 추가
+    public BaseQuestion getRandomBaseQuestion(List<Long> usedBaseQuestionIds) {
         Long numberOfBaseQuestion = baseQuestionRepository.countBaseQuestions();
-        // numberOfBaseQuestion <= 0이면 예외처리
-        Long baseQuestionId = RandomNumberUtils.getRandomLongInRange(numberOfBaseQuestion);
-        return getBaseQuestionById(baseQuestionId);
+        if (numberOfBaseQuestion <= 0) {
+            throw new InvalidBaseQuestionCountException();
+        }
+
+        List<BaseQuestion> unusedBaseQuestions = baseQuestionRepository.findAll()
+                .stream()
+                .filter(baseQuestion -> !usedBaseQuestionIds.contains(baseQuestion.getId()))
+                .toList();
+
+        if (unusedBaseQuestions.isEmpty()) {
+            throw new NoMoreBaseQuestionException();
+        }
+
+        int questionIndex = RandomNumberUtils.getRandomIntInRange(0, unusedBaseQuestions.size());
+        log.info(String.valueOf(questionIndex));
+        return unusedBaseQuestions.get(questionIndex);
     }
 
     public BaseQuestion getBaseQuestionById(Long id) {

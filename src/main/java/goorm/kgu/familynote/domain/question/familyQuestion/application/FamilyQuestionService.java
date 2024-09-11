@@ -8,6 +8,8 @@ import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestion
 import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestionRepository;
 import goorm.kgu.familynote.domain.question.familyQuestion.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.user.application.UserService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +30,21 @@ public class FamilyQuestionService {
         */
         Long userId = userService.me().getId();
         Family family = familyMemberService.getFamilyByFamilyMember(userId);
-        BaseQuestion baseQuestion = baseQuestionService.getRandomBaseQuestion();
+
+        List<Long> usedBaseQuestionIds = getBaseQuestionIdsByFamilyId(family.getId());
+        BaseQuestion baseQuestion = baseQuestionService.getRandomBaseQuestion(usedBaseQuestionIds);
         FamilyQuestion familyQuestion = FamilyQuestion.createFamilyQuestion(family, baseQuestion);
         familyQuestionRepository.save(familyQuestion);
         return FamilyQuestionResponse.of(familyQuestion);
+    }
+
+    public List<FamilyQuestion> getAllFamilyQuestionsByFamilyId(Long familyId) {
+        return familyQuestionRepository.findAllByFamilyId(familyId);
+    }
+
+    public List<Long> getBaseQuestionIdsByFamilyId(Long familyId) {
+        return getAllFamilyQuestionsByFamilyId(familyId).stream()
+                .map(familyQuestion -> familyQuestion.getBaseQuestion().getId())
+                .toList();
     }
 }
