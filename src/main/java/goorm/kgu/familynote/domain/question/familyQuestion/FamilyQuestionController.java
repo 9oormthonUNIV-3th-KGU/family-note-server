@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.domain.question.familyQuestion;
 
+import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.question.familyQuestion.application.FamilyQuestionService;
 import goorm.kgu.familynote.domain.question.familyQuestion.presentation.response.FamilyQuestionResponse;
@@ -37,6 +38,16 @@ public class FamilyQuestionController {
                     responseCode = "201",
                     description = "가족 질문 생성 성공",
                     content = @Content(schema = @Schema(implementation = FamilyQuestionResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "기본 질문이 0개 이하여서 가족 질문을 생성할 수 없습니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "모든 기본 질문에 답변하여서 새로운 가족 질문을 생성할 수 없습니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             )
     })
     @ResponseStatus(CREATED)
