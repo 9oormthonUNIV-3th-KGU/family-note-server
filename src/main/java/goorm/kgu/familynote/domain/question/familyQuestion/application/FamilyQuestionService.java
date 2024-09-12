@@ -44,6 +44,7 @@ public class FamilyQuestionService {
         familyQuestionRepository.save(familyQuestion);
         return FamilyQuestionResponse.of(familyQuestion);
     }
+
     @Transactional
     public PageableResponse<FamilyQuestionResponse> getFamilyQuestions(int page, int size) {
         Long userId = userService.me().getId();
