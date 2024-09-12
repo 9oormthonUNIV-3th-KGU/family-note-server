@@ -53,7 +53,6 @@ public class BaseQuestionService {
         }
 
         int questionIndex = RandomNumberUtils.getRandomIntInRange(0, unusedBaseQuestions.size());
-        log.info(String.valueOf(questionIndex));
         return unusedBaseQuestions.get(questionIndex);
     }
 
