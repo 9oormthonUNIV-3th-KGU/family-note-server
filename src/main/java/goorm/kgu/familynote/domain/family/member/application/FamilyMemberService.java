@@ -34,8 +34,4 @@ public class FamilyMemberService {
 		return FamilyPersistResponse.of(family.getId());
 	}
 
-	public Family getFamilyByFamilyMember(Long userId) {
-		FamilyMember familyMember = familyMemberRepository.findByUserId(userId);
-		return familyService.getFamilyById(familyMember.getId());
-	}
 }

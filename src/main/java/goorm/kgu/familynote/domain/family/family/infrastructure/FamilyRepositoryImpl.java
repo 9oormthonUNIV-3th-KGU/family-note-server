@@ -22,4 +22,10 @@ public class FamilyRepositoryImpl implements FamilyRepository {
 	public Family save(Family family) {
 		return jpaFamilyRepository.save(family);
 	}
+
+	@Override
+	public Family findFamilyByMemberUserId(Long userId) {
+		return jpaFamilyRepository.findFamilyByMemberUserId(userId);
+	}
+
 }

@@ -1,6 +1,7 @@
 package goorm.kgu.familynote.domain.family.familyQuestion.application;
 
 import goorm.kgu.familynote.common.response.PageableResponse;
+import goorm.kgu.familynote.domain.family.family.application.FamilyService;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
 import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestionRepository;
@@ -22,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FamilyQuestionService {
     private final FamilyQuestionRepository familyQuestionRepository;
-    private final FamilyMemberService familyMemberService;
+    private final FamilyService familyService;
     private final BaseQuestionService baseQuestionService;
     private final UserService userService;
 
@@ -35,7 +36,7 @@ public class FamilyQuestionService {
         이전 질문이 있고, 모든 가족 구정원이 답변하였다면 정상 발행
         */
         Long userId = userService.me().getId();
-        Family family = familyMemberService.getFamilyByFamilyMember(userId);
+        Family family = familyService.getFamilyByFamilyMember(userId);
 
         List<Long> usedBaseQuestionIds = getBaseQuestionIdsByFamilyId(family.getId());
         BaseQuestion baseQuestion = baseQuestionService.getRandomBaseQuestion(usedBaseQuestionIds);
@@ -47,7 +48,7 @@ public class FamilyQuestionService {
     @Transactional
     public PageableResponse<FamilyQuestionResponse> getFamilyQuestions(int page, int size) {
         Long userId = userService.me().getId();
-        Family family = familyMemberService.getFamilyByFamilyMember(userId);
+        Family family = familyService.getFamilyByFamilyMember(userId);
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<FamilyQuestion> familyQuestions = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);
         Page<FamilyQuestionResponse> familyQuestionResponses = familyQuestions.map(FamilyQuestionResponse::of);

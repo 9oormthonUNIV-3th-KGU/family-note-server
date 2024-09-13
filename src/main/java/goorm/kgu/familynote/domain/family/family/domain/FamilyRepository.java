@@ -7,4 +7,7 @@ public interface FamilyRepository {
 	Family save(Family family);
 
 	Optional<Family> findById(Long familyId);
+
+	Family findFamilyByMemberUserId(Long userId);
+
 }
