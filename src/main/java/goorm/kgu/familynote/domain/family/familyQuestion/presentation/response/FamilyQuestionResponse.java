@@ -1,6 +1,6 @@
-package goorm.kgu.familynote.domain.question.familyQuestion.presentation.response;
+package goorm.kgu.familynote.domain.family.familyQuestion.presentation.response;
 
-import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestion;
+import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 

@@ -1,9 +1,9 @@
-package goorm.kgu.familynote.domain.question.familyQuestion;
+package goorm.kgu.familynote.domain.family.familyQuestion;
 
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.common.response.PageableResponse;
-import goorm.kgu.familynote.domain.question.familyQuestion.application.FamilyQuestionService;
-import goorm.kgu.familynote.domain.question.familyQuestion.presentation.response.FamilyQuestionResponse;
+import goorm.kgu.familynote.domain.family.familyQuestion.application.FamilyQuestionService;
+import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,9 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/question/family")
+@RequestMapping("/api/v1/family/question")
 @Tag(name = "Family Question", description = "가족 질문 관련 api / 담당자 : 전민주")
 public class FamilyQuestionController {
     private final FamilyQuestionService familyQuestionService;

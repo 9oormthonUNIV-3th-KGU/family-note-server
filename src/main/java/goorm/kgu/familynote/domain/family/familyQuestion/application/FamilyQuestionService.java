@@ -1,16 +1,15 @@
-package goorm.kgu.familynote.domain.question.familyQuestion.application;
+package goorm.kgu.familynote.domain.family.familyQuestion.application;
 
 import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
+import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
+import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestionRepository;
+import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.family.member.application.FamilyMemberService;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
-import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestion;
-import goorm.kgu.familynote.domain.question.familyQuestion.domain.FamilyQuestionRepository;
-import goorm.kgu.familynote.domain.question.familyQuestion.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.user.application.UserService;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

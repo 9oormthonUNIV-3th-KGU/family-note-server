@@ -1,4 +1,4 @@
-package goorm.kgu.familynote.domain.question.familyQuestion.domain;
+package goorm.kgu.familynote.domain.family.familyQuestion.domain;
 
 
 import java.util.List;
