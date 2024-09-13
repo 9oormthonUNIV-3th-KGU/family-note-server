@@ -1,15 +1,18 @@
 package goorm.kgu.familynote.domain.family.familyQuestion;
 
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
-import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.family.familyQuestion.application.FamilyQuestionService;
+import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionPageResponse;
 import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,15 +61,20 @@ public class FamilyQuestionController {
             @ApiResponse(
                     responseCode = "200",
                     description = "가족 질문 조회 성공",
-                    content = @Content(schema = @Schema(implementation = PageableResponse.class))
+                    content = @Content(schema = @Schema(implementation = FamilyQuestionPageResponse.class))
             )
     })
     @GetMapping
-    public ResponseEntity<PageableResponse<FamilyQuestionResponse>> getFamilyQuestions(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+    public ResponseEntity<FamilyQuestionPageResponse> getFamilyQuestions(
+            @Parameter(description = "페이지 번호", example = "0", required = true)
+            @RequestParam(defaultValue = "0")
+            @PositiveOrZero int page,
+
+            @Parameter(description = "페이지 크기", example = "5", required = true)
+            @RequestParam(defaultValue = "5")
+            @Positive int size
     ) {
-        PageableResponse<FamilyQuestionResponse> response = familyQuestionService.getFamilyQuestions(page, size);
+        FamilyQuestionPageResponse response = familyQuestionService.getFamilyQuestions(page, size);
         return ResponseEntity.ok(response);
     }
 
