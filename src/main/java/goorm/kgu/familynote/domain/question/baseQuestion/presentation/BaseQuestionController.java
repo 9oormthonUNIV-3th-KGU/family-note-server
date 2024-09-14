@@ -1,12 +1,8 @@
 package goorm.kgu.familynote.domain.question.baseQuestion.presentation;
 
-import goorm.kgu.familynote.common.exception.ExceptionResponse;
-import goorm.kgu.familynote.domain.family.family.presentation.response.FamilyPersistResponse;
-import goorm.kgu.familynote.domain.family.member.presentation.request.FamilyMemberCreateRequest;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.BaseQuestionCreateRequest;
-import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponse;
-import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
+import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionPersistListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -37,15 +33,15 @@ public class BaseQuestionController {
             @ApiResponse(
                     responseCode = "201",
                     description = "기본 질문 등록 성공",
-                    content = @Content(schema = @Schema(implementation = BaseQuestionResponseList.class))
+                    content = @Content(schema = @Schema(implementation = BaseQuestionPersistListResponse.class))
             )
     })
     @ResponseStatus(CREATED)
     @PostMapping
-    public ResponseEntity<BaseQuestionResponseList> createBaseQuestions(
+    public ResponseEntity<BaseQuestionPersistListResponse> createBaseQuestions(
             @Valid @RequestBody List<BaseQuestionCreateRequest> requests
     ) {
-        BaseQuestionResponseList response = baseQuestionService.saveBaseQuestions(requests);
+        BaseQuestionPersistListResponse response = baseQuestionService.saveBaseQuestions(requests);
         return ResponseEntity.ok(response);
     }
 
