@@ -3,6 +3,7 @@ package goorm.kgu.familynote.domain.family.answer;
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.domain.family.answer.application.FamilyAnswerService;
 import goorm.kgu.familynote.domain.family.answer.presentation.request.FamilyAnswerCreateRequest;
+import goorm.kgu.familynote.domain.family.answer.presentation.response.FamilyAnswerListResponse;
 import goorm.kgu.familynote.domain.family.answer.presentation.response.FamilyAnswerPersistResponse;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.user.presentation.request.UserCreateRequest;
@@ -15,9 +16,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +46,21 @@ public class FamilyAnswerController {
     public ResponseEntity<FamilyAnswerPersistResponse> createFamilyAnswer(
             @Valid @RequestBody FamilyAnswerCreateRequest request) {
         FamilyAnswerPersistResponse response = familyAnswerService.createFamilyAnswer(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "가족 답변 조회", description = "하나의 가족 질문에 대한 가족 답변을 조회합니다. 내 답변 여부는 isAnswered 필드로 반환합니다.")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "가족 답변 조회 성공",
+                    content = @Content(schema = @Schema(implementation = FamilyAnswerListResponse.class))
+            )
+    })
+    @GetMapping
+    public ResponseEntity<FamilyAnswerListResponse> getFamilyAnswers(
+            @RequestParam Long familyQuestionId) {
+        FamilyAnswerListResponse response = familyAnswerService.getFamilyAnswers(familyQuestionId);
         return ResponseEntity.ok(response);
     }
 

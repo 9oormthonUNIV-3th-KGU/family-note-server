@@ -2,6 +2,8 @@ package goorm.kgu.familynote.domain.family.answer.infrasturcture;
 
 import goorm.kgu.familynote.domain.family.answer.domain.FamilyAnswer;
 import goorm.kgu.familynote.domain.family.answer.domain.FamilyAnswerRepository;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,11 @@ public class FamilyAnswerRepositoryImpl implements FamilyAnswerRepository {
     @Override
     public FamilyAnswer save(FamilyAnswer familyAnswer) {
         return jpaFamilyAnswerRepository.save(familyAnswer);
+    }
+
+    @Override
+    public List<FamilyAnswer> getFamilyAnswersByFamilyQuestion(FamilyQuestion familyQuestion) {
+        return jpaFamilyAnswerRepository.findAllByFamilyQuestion(familyQuestion);
     }
 
 }
