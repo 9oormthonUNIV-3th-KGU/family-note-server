@@ -16,7 +16,6 @@ public class FamilyService {
 	private final FamilyRepository familyRepository;
 	private final UserService userService;
 
-
 	@Transactional
 	public FamilyResponse getFamily(Long familyId) {
 		Family family = getFamilyById(familyId);
@@ -34,4 +33,10 @@ public class FamilyService {
 		return familyRepository.findById(familyId)
 			.orElseThrow(FamilyNotFoundException::new);
 	}
+
+	public Family getFamilyByFamilyMember(Long userId) {
+		Family family = familyRepository.findFamilyByMemberUserId(userId);
+		return family;
+	}
+
 }

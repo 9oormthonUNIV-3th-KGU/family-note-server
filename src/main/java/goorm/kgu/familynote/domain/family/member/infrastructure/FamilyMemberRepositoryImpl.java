@@ -15,4 +15,9 @@ public class FamilyMemberRepositoryImpl implements FamilyMemberRepository {
 	public FamilyMember save(FamilyMember familyMember) {
 		return jpaFamilyMemberRepository.save(familyMember);
 	}
+
+	@Override
+	public FamilyMember findByUserId(Long userId) {
+		return jpaFamilyMemberRepository.findByUserId(userId);
+	}
 }
