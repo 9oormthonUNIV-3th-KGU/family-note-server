@@ -9,6 +9,7 @@ import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionReposito
 import goorm.kgu.familynote.domain.family.question.presentation.exception.FamilyQuestionNotFoundException;
 import goorm.kgu.familynote.domain.family.question.presentation.exception.InsufficientResponsesForNewQuestionException;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPersistResponse;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
@@ -33,7 +34,7 @@ public class FamilyQuestionService {
     private final FamilyMemberService familyMemberService;
 
     @Transactional
-    public FamilyQuestionResponse createFamilyQuestion() {
+    public FamilyQuestionPersistResponse createFamilyQuestion() {
         Long userId = userService.me().getId();
         Family family = familyService.getFamilyByFamilyMember(userId);
         FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
@@ -46,7 +47,7 @@ public class FamilyQuestionService {
         BaseQuestion baseQuestion = baseQuestionService.getRandomBaseQuestion(usedBaseQuestionIds);
         FamilyQuestion familyQuestion = FamilyQuestion.createFamilyQuestion(family, baseQuestion);
         familyQuestionRepository.save(familyQuestion);
-        return FamilyQuestionResponse.of(familyQuestion);
+        return FamilyQuestionPersistResponse.of(familyQuestion.getId());
     }
 
     @Transactional
