@@ -10,16 +10,13 @@ import goorm.kgu.familynote.domain.question.baseQuestion.presentation.request.Ba
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.presentation.response.BaseQuestionResponseList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class BaseQuestionService {
     private final BaseQuestionRepository baseQuestionRepository;
 

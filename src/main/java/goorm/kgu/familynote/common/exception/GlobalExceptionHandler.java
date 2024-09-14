@@ -38,7 +38,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ExceptionResponse> handleException(Exception exception) {
-		log.error("An error occurred: {}", exception.getMessage(), exception);
 		eventPublisher.publishEvent(exception);
 		return ResponseEntity.internalServerError().body(ExceptionResponse.from(SERVER_ERROR));
 	}
