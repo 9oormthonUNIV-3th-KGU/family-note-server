@@ -1,6 +1,6 @@
-package goorm.kgu.familynote.domain.family.familyQuestion.infrastructure;
+package goorm.kgu.familynote.domain.family.question.infrastructure;
 
-import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

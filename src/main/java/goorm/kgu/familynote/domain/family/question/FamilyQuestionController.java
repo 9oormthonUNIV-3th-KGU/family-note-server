@@ -1,9 +1,9 @@
-package goorm.kgu.familynote.domain.family.familyQuestion;
+package goorm.kgu.familynote.domain.family.question;
 
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
-import goorm.kgu.familynote.domain.family.familyQuestion.application.FamilyQuestionService;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionPageResponse;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
+import goorm.kgu.familynote.domain.family.question.application.FamilyQuestionService;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,7 +1,7 @@
-package goorm.kgu.familynote.domain.family.familyQuestion.infrastructure;
+package goorm.kgu.familynote.domain.family.question.infrastructure;
 
-import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
-import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestionRepository;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

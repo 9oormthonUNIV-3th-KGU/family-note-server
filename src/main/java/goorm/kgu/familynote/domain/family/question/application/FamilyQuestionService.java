@@ -1,12 +1,12 @@
-package goorm.kgu.familynote.domain.family.familyQuestion.application;
+package goorm.kgu.familynote.domain.family.question.application;
 
 import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.family.family.application.FamilyService;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
-import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestion;
-import goorm.kgu.familynote.domain.family.familyQuestion.domain.FamilyQuestionRepository;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionPageResponse;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
+import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionRepository;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.user.application.UserService;

@@ -1,4 +1,4 @@
-package goorm.kgu.familynote.domain.family.familyQuestion.domain;
+package goorm.kgu.familynote.domain.family.question.domain;
 
 import goorm.kgu.familynote.common.domain.BaseTimeEntity;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
