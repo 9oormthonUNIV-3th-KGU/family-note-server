@@ -3,9 +3,11 @@ package goorm.kgu.familynote.domain.family.question.application;
 import goorm.kgu.familynote.common.response.PageableResponse;
 import goorm.kgu.familynote.domain.family.family.application.FamilyService;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
+import goorm.kgu.familynote.domain.family.member.application.FamilyMemberService;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionRepository;
 import goorm.kgu.familynote.domain.family.question.presentation.exception.FamilyQuestionNotFoundException;
+import goorm.kgu.familynote.domain.family.question.presentation.exception.InsufficientResponsesForNewQuestionException;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
@@ -28,17 +30,17 @@ public class FamilyQuestionService {
     private final FamilyService familyService;
     private final BaseQuestionService baseQuestionService;
     private final UserService userService;
+    private final FamilyMemberService familyMemberService;
 
     @Transactional
     public FamilyQuestionResponse createFamilyQuestion() {
-        /*
-        FamilyAnswer 구현 하면서 추가할 세부 로직
-        이전 질문이 없으면 바로 발행
-        이전 질문이 있고, 아직 모든 가족 구성원이 답변하지 않았다면 예외처리
-        이전 질문이 있고, 모든 가족 구정원이 답변하였다면 정상 발행
-        */
         Long userId = userService.me().getId();
         Family family = familyService.getFamilyByFamilyMember(userId);
+        FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
+
+        if (latestFamilyQuestion != null && !isEveryFamilyMemberAnswered(family, latestFamilyQuestion)) {
+            throw new InsufficientResponsesForNewQuestionException();
+        }
 
         List<Long> usedBaseQuestionIds = getBaseQuestionIdsByFamilyId(family.getId());
         BaseQuestion baseQuestion = baseQuestionService.getRandomBaseQuestion(usedBaseQuestionIds);
@@ -59,6 +61,20 @@ public class FamilyQuestionService {
                 .collect(Collectors.toList());
         PageableResponse pageableResponse = PageableResponse.of(pageable, familyQuestionsPage.getTotalElements());
         return new FamilyQuestionPageResponse(familyQuestionResponses, pageableResponse);
+    }
+
+    public Boolean isEveryFamilyMemberAnswered(Family family, FamilyQuestion familyQuestion) {
+        int totalFamilyMembers = familyMemberService.countFamilyMemberByFamilyId(family.getId());
+        int answeredMembers = countFamilyAnswerByFamilyQuestion(familyQuestion);
+        return totalFamilyMembers == answeredMembers;
+    }
+
+    public FamilyQuestion getLatestCreatedFamilyQuestion(Long familyId) {
+        return familyQuestionRepository.findLatestCreatedFamilyQuestionByFamilyId(familyId);
+    }
+
+    public Integer countFamilyAnswerByFamilyQuestion(FamilyQuestion familyQuestion) {
+        return familyQuestion.getNumberOfRespondents();
     }
 
     public List<FamilyQuestion> getAllFamilyQuestionsByFamilyId(Long familyId) {

@@ -8,4 +8,6 @@ public interface JpaFamilyMemberRepository extends JpaRepository<FamilyMember, L
 
     FamilyMember findByUserId(Long userId);
 
+    Integer countByFamilyId(Long familyId);
+
 }

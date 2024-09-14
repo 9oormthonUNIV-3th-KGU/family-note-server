@@ -34,4 +34,8 @@ public class FamilyMemberService {
 		return FamilyPersistResponse.of(family.getId());
 	}
 
+	public Integer countFamilyMemberByFamilyId(Long familyId) {
+		return familyMemberRepository.countFamilyMemberByFamilyId(familyId);
+	}
+
 }

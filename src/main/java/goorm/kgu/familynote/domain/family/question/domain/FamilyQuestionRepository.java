@@ -16,4 +16,6 @@ public interface FamilyQuestionRepository {
 
     Optional<FamilyQuestion> findById(Long id);
 
+    FamilyQuestion findLatestCreatedFamilyQuestionByFamilyId(Long familyId);
+
 }

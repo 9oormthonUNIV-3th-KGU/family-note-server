@@ -45,7 +45,9 @@ public class FamilyQuestionController {
             ),
             @ApiResponse(
                     responseCode = "422",
-                    description = "기본 질문이 0개 이하여서 가족 질문을 생성할 수 없습니다.",
+                    description = "기본 질문이 0개 이하여서 가족 질문을 생성할 수 없습니다." +
+                            "<br> 또는 <br>" +
+                            "이전 가족 질문에 모두 답하지 않아 새로운 질문을 생성할 수 없습니다.",
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             )
     })

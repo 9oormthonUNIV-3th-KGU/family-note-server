@@ -33,4 +33,10 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     public Optional<FamilyQuestion> findById(Long id) {
         return jpaFamilyQuestionRepository.findById(id);
     }
+
+    @Override
+    public FamilyQuestion findLatestCreatedFamilyQuestionByFamilyId(Long familyId) {
+        return jpaFamilyQuestionRepository.findTopByFamilyIdOrderByCreatedAtDesc(familyId);
+    }
+
 }
