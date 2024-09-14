@@ -3,6 +3,7 @@ package goorm.kgu.familynote.domain.family.question.infrastructure;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +20,6 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     }
 
     @Override
-    public List<Long> findUsedBaseQuestionIdsByFamilyId(Long familyId) {
-        return jpaFamilyQuestionRepository.findBaseQuestionIdsByFamilyId(familyId);
-    }
-
-    @Override
     public List<FamilyQuestion> findAllByFamilyId(Long familyId) {
         return jpaFamilyQuestionRepository.findAllByFamilyId(familyId);
     }
@@ -31,5 +27,10 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     @Override
     public Page<FamilyQuestion> findAllByFamilyId(Long familyId, Pageable pageable) {
         return jpaFamilyQuestionRepository.findAllByFamilyId(familyId, pageable);
+    }
+
+    @Override
+    public Optional<FamilyQuestion> findById(Long id) {
+        return jpaFamilyQuestionRepository.findById(id);
     }
 }

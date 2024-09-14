@@ -5,6 +5,7 @@ import goorm.kgu.familynote.domain.family.family.application.FamilyService;
 import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestionRepository;
+import goorm.kgu.familynote.domain.family.question.presentation.exception.FamilyQuestionNotFoundException;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
@@ -73,4 +74,10 @@ public class FamilyQuestionService {
     public Page<FamilyQuestion> getAllFamilyQuestionsByFamilyId(Long familyId, Pageable pageable) {
         return familyQuestionRepository.findAllByFamilyId(familyId, pageable);
     }
+
+    public FamilyQuestion getFamilyQuestionById(Long id) {
+        return familyQuestionRepository.findById(id)
+                .orElseThrow(FamilyQuestionNotFoundException::new);
+    }
+
 }
