@@ -23,9 +23,8 @@ public class FamilyAnswerService {
     private final UserService userService;
 
     @Transactional
-    public FamilyAnswerPersistResponse createFamilyAnswer(FamilyAnswerCreateRequest request) {
+    public FamilyAnswerPersistResponse createFamilyAnswer(Long familyQuestionId, FamilyAnswerCreateRequest request) {
         User user = userService.me();
-        Long familyQuestionId = request.familyQuestionId();
         FamilyQuestion familyQuestion = familyQuestionService.getFamilyQuestionById(familyQuestionId);
         FamilyAnswer familyAnswer = FamilyAnswer.createFamilyAnswer(familyQuestion, user, request.content());
         Long id = saveFamilyAnswer(familyAnswer);

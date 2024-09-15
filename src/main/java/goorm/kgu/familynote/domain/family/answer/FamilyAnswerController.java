@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,11 @@ public class FamilyAnswerController {
             )
     })
     @ResponseStatus(CREATED)
-    @PostMapping
+    @PostMapping("/{familyQuestionId}")
     public ResponseEntity<FamilyAnswerPersistResponse> createFamilyAnswer(
+            @PathVariable Long familyQuestionId,
             @Valid @RequestBody FamilyAnswerCreateRequest request) {
-        FamilyAnswerPersistResponse response = familyAnswerService.createFamilyAnswer(request);
+        FamilyAnswerPersistResponse response = familyAnswerService.createFamilyAnswer(familyQuestionId, request);
         return ResponseEntity.ok(response);
     }
 
@@ -57,9 +59,9 @@ public class FamilyAnswerController {
                     content = @Content(schema = @Schema(implementation = FamilyAnswerListResponse.class))
             )
     })
-    @GetMapping
+    @GetMapping("/{familyQuestionId}")
     public ResponseEntity<FamilyAnswerListResponse> getFamilyAnswers(
-            @RequestParam Long familyQuestionId) {
+            @PathVariable Long familyQuestionId) {
         FamilyAnswerListResponse response = familyAnswerService.getFamilyAnswers(familyQuestionId);
         return ResponseEntity.ok(response);
     }
