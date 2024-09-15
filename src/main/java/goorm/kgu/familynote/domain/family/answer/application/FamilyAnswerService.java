@@ -36,12 +36,9 @@ public class FamilyAnswerService {
         User user = userService.me();
         FamilyQuestion familyQuestion = familyQuestionService.getFamilyQuestionById(familyQuestionId);
         List<FamilyAnswer> familyAnswerList = familyAnswerRepository.findFamilyAnswersByFamilyQuestion(familyQuestion);
-        List<FamilyAnswerResponse> familyAnswerResponseList = familyAnswerList.stream()
-                .map(familyAnswer -> FamilyAnswerResponse.of(familyAnswer.getUser().getNickname(), familyAnswer.getContent()))
-                .toList();
         boolean isUserInList = familyAnswerList.stream()
                 .anyMatch(familyAnswer -> familyAnswer.getUser().getId().equals(user.getId()));
-        return FamilyAnswerListResponse.of(isUserInList, familyAnswerResponseList);
+        return FamilyAnswerListResponse.of(isUserInList, familyAnswerList);
     }
 
 }

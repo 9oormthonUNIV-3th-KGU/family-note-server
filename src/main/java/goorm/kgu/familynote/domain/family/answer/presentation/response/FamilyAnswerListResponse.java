@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.domain.family.answer.presentation.response;
 
+import goorm.kgu.familynote.domain.family.answer.domain.FamilyAnswer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 
@@ -17,7 +18,12 @@ public record FamilyAnswerListResponse(
                 , requiredMode = REQUIRED)
         List<FamilyAnswerResponse> contents
 ) {
-    public static FamilyAnswerListResponse of(Boolean isAnswered, List<FamilyAnswerResponse> contents) {
-        return new FamilyAnswerListResponse(isAnswered, contents);
+    public static FamilyAnswerListResponse of(Boolean isAnswered, List<FamilyAnswer> contents) {
+        List<FamilyAnswerResponse> responseContents = contents.stream()
+                .map(familyAnswer ->
+                        new FamilyAnswerResponse(familyAnswer.getUser().getNickname(), familyAnswer.getContent()))
+                .toList();
+        return new FamilyAnswerListResponse(isAnswered, responseContents);
     }
+
 }
