@@ -29,7 +29,7 @@ public class BaseQuestion extends BaseTimeEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String content;
 
     public static BaseQuestion create(String content) {
