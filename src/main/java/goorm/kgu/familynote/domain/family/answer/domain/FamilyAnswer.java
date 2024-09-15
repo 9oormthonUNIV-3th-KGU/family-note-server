@@ -44,7 +44,6 @@ public class FamilyAnswer {
     private User user;
 
     @Column(length = 1000, nullable = false)
-    @NotNull(message = "가족 답변은 null일 수 없습니다.")
     private String content;
 
     public static FamilyAnswer createFamilyAnswer(FamilyQuestion familyQuestion, User user, String content) {
