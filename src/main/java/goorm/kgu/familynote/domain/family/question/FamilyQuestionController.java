@@ -40,15 +40,18 @@ public class FamilyQuestionController {
                     content = @Content(schema = @Schema(implementation = FamilyQuestionPersistResponse.class))
             ),
             @ApiResponse(
+                    responseCode = "400",
+                    description = "이전 가족 질문에 모두 답하지 않아 새로운 질문을 생성할 수 없습니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+            ),
+            @ApiResponse(
                     responseCode = "409",
                     description = "모든 기본 질문에 답변하여서 새로운 가족 질문을 생성할 수 없습니다.",
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             ),
             @ApiResponse(
                     responseCode = "422",
-                    description = "기본 질문이 0개 이하여서 가족 질문을 생성할 수 없습니다." +
-                            "<br> 또는 <br>" +
-                            "이전 가족 질문에 모두 답하지 않아 새로운 질문을 생성할 수 없습니다.",
+                    description = "기본 질문이 0개 이하여서 가족 질문을 생성할 수 없습니다.",
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             )
     })
