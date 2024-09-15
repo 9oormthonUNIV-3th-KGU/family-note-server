@@ -15,6 +15,16 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     private final JpaFamilyQuestionRepository jpaFamilyQuestionRepository;
 
     @Override
+    public Optional<FamilyQuestion> findById(Long id) {
+        return jpaFamilyQuestionRepository.findById(id);
+    }
+
+    @Override
+    public FamilyQuestion findLatestCreatedFamilyQuestionByFamilyId(Long familyId) {
+        return jpaFamilyQuestionRepository.findTopByFamilyIdOrderByCreatedAtDesc(familyId);
+    }
+
+    @Override
     public FamilyQuestion save(FamilyQuestion familyQuestion) {
         return jpaFamilyQuestionRepository.save(familyQuestion);
     }
@@ -27,16 +37,6 @@ public class FamilyQuestionRepositoryImpl implements FamilyQuestionRepository {
     @Override
     public Page<FamilyQuestion> findAllByFamilyId(Long familyId, Pageable pageable) {
         return jpaFamilyQuestionRepository.findAllByFamilyId(familyId, pageable);
-    }
-
-    @Override
-    public Optional<FamilyQuestion> findById(Long id) {
-        return jpaFamilyQuestionRepository.findById(id);
-    }
-
-    @Override
-    public FamilyQuestion findLatestCreatedFamilyQuestionByFamilyId(Long familyId) {
-        return jpaFamilyQuestionRepository.findTopByFamilyIdOrderByCreatedAtDesc(familyId);
     }
 
 }
