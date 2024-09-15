@@ -8,12 +8,15 @@ import goorm.kgu.familynote.domain.family.answer.presentation.response.FamilyAns
 import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import goorm.kgu.familynote.domain.user.presentation.request.UserCreateRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +48,7 @@ public class FamilyAnswerController {
     @ResponseStatus(CREATED)
     @PostMapping("/{familyQuestionId}")
     public ResponseEntity<FamilyAnswerPersistResponse> createFamilyAnswer(
-            @PathVariable Long familyQuestionId,
+            @PathVariable @NotNull @Positive @Parameter(description = "가족 질문 ID") Long familyQuestionId,
             @Valid @RequestBody FamilyAnswerCreateRequest request) {
         FamilyAnswerPersistResponse response = familyAnswerService.createFamilyAnswer(familyQuestionId, request);
         return ResponseEntity.ok(response);
@@ -61,7 +64,7 @@ public class FamilyAnswerController {
     })
     @GetMapping("/{familyQuestionId}")
     public ResponseEntity<FamilyAnswerListResponse> getFamilyAnswers(
-            @PathVariable Long familyQuestionId) {
+            @PathVariable @NotNull @Positive @Parameter(description = "가족 질문 ID") Long familyQuestionId) {
         FamilyAnswerListResponse response = familyAnswerService.getFamilyAnswers(familyQuestionId);
         return ResponseEntity.ok(response);
     }
