@@ -5,6 +5,7 @@ import goorm.kgu.familynote.domain.family.family.domain.Family;
 import goorm.kgu.familynote.domain.family.question.domain.FamilyQuestion;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.user.domain.User;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,7 +43,8 @@ public class FamilyAnswer {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Size(min = 1, max = 1000, message = "가족 답변은 1자 이상 1000자 이하여야 합니다.")
+    @Column(length = 1000, nullable = false)
+    @NotNull(message = "가족 답변은 null일 수 없습니다.")
     private String content;
 
     public static FamilyAnswer createFamilyAnswer(FamilyQuestion familyQuestion, User user, String content) {
