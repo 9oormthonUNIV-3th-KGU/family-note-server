@@ -18,7 +18,7 @@ public class FamilyAnswerRepositoryImpl implements FamilyAnswerRepository {
     }
 
     @Override
-    public List<FamilyAnswer> getFamilyAnswersByFamilyQuestion(FamilyQuestion familyQuestion) {
+    public List<FamilyAnswer> findFamilyAnswersByFamilyQuestion(FamilyQuestion familyQuestion) {
         return jpaFamilyAnswerRepository.findAllByFamilyQuestion(familyQuestion);
     }
 

@@ -7,6 +7,6 @@ public interface FamilyAnswerRepository {
 
     FamilyAnswer save(FamilyAnswer familyAnswer);
 
-    List<FamilyAnswer> getFamilyAnswersByFamilyQuestion(FamilyQuestion familyQuestion);
+    List<FamilyAnswer> findFamilyAnswersByFamilyQuestion(FamilyQuestion familyQuestion);
 
 }

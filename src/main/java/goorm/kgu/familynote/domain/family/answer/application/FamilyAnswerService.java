@@ -27,7 +27,7 @@ public class FamilyAnswerService {
         User user = userService.me();
         FamilyQuestion familyQuestion = familyQuestionService.getFamilyQuestionById(familyQuestionId);
         FamilyAnswer familyAnswer = FamilyAnswer.createFamilyAnswer(familyQuestion, user, request.content());
-        Long id = saveFamilyAnswer(familyAnswer);
+        Long id = familyAnswerRepository.save(familyAnswer).getId();
         return FamilyAnswerPersistResponse.of(id);
     }
 
@@ -35,7 +35,7 @@ public class FamilyAnswerService {
     public FamilyAnswerListResponse getFamilyAnswers(Long familyQuestionId) {
         User user = userService.me();
         FamilyQuestion familyQuestion = familyQuestionService.getFamilyQuestionById(familyQuestionId);
-        List<FamilyAnswer> familyAnswerList = familyAnswerRepository.getFamilyAnswersByFamilyQuestion(familyQuestion);
+        List<FamilyAnswer> familyAnswerList = familyAnswerRepository.findFamilyAnswersByFamilyQuestion(familyQuestion);
         List<FamilyAnswerResponse> familyAnswerResponseList = familyAnswerList.stream()
                 .map(familyAnswer -> FamilyAnswerResponse.of(familyAnswer.getUser().getNickname(), familyAnswer.getContent()))
                 .toList();
@@ -44,7 +44,4 @@ public class FamilyAnswerService {
         return FamilyAnswerListResponse.of(isUserInList, familyAnswerResponseList);
     }
 
-    public Long saveFamilyAnswer(FamilyAnswer familyAnswer) {
-        return familyAnswerRepository.save(familyAnswer).getId();
-    }
 }
