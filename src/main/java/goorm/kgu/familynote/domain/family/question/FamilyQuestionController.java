@@ -1,9 +1,10 @@
-package goorm.kgu.familynote.domain.family.familyQuestion;
+package goorm.kgu.familynote.domain.family.question;
 
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
-import goorm.kgu.familynote.domain.family.familyQuestion.application.FamilyQuestionService;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionPageResponse;
-import goorm.kgu.familynote.domain.family.familyQuestion.presentation.response.FamilyQuestionResponse;
+import goorm.kgu.familynote.domain.family.question.application.FamilyQuestionService;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPageResponse;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionPersistResponse;
+import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQuestionResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,7 +37,12 @@ public class FamilyQuestionController {
             @ApiResponse(
                     responseCode = "201",
                     description = "가족 질문 생성 성공",
-                    content = @Content(schema = @Schema(implementation = FamilyQuestionResponse.class))
+                    content = @Content(schema = @Schema(implementation = FamilyQuestionPersistResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "이전 가족 질문에 모두 답하지 않아 새로운 질문을 생성할 수 없습니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             ),
             @ApiResponse(
                     responseCode = "409",
@@ -51,8 +57,8 @@ public class FamilyQuestionController {
     })
     @ResponseStatus(CREATED)
     @PostMapping
-    public ResponseEntity<FamilyQuestionResponse> createFamilyQuestion() {
-        FamilyQuestionResponse response = familyQuestionService.createFamilyQuestion();
+    public ResponseEntity<FamilyQuestionPersistResponse> createFamilyQuestion() {
+        FamilyQuestionPersistResponse response = familyQuestionService.createFamilyQuestion();
         return ResponseEntity.ok(response);
     }
 

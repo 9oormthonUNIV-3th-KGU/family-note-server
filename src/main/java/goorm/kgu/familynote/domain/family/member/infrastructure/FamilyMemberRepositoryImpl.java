@@ -17,7 +17,8 @@ public class FamilyMemberRepositoryImpl implements FamilyMemberRepository {
 	}
 
 	@Override
-	public FamilyMember findByUserId(Long userId) {
-		return jpaFamilyMemberRepository.findByUserId(userId);
+	public Integer countFamilyMemberByFamilyId(Long familyId) {
+		return jpaFamilyMemberRepository.countByFamilyId(familyId);
 	}
+
 }
