@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.common.config;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
@@ -73,6 +74,7 @@ public class SecurityConfig {
 			CorsConfiguration config = new CorsConfiguration();
 			config.setAllowedHeaders(Collections.singletonList("*"));
 			config.setAllowedMethods(Collections.singletonList("*"));
+			config.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://211.188.49.236:5173"));
 			config.setAllowCredentials(true);
 			return config;
 		};
