@@ -30,8 +30,6 @@ public class FamilyMember extends BaseTimeEntity {
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
-	private String role;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
