@@ -48,7 +48,7 @@ public class FamilyMemberController {
 		@Valid @RequestBody FamilyMemberCreateRequest request
 	) {
 		FamilyPersistResponse response = familyMemberService.saveFamilyMember(request);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.status(CREATED).body(response);
 	}
 
 }

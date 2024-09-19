@@ -51,7 +51,7 @@ public class FamilyAnswerController {
             @PathVariable @NotNull @Positive @Parameter(description = "가족 질문 ID") Long familyQuestionId,
             @Valid @RequestBody FamilyAnswerCreateRequest request) {
         FamilyAnswerPersistResponse response = familyAnswerService.createFamilyAnswer(familyQuestionId, request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(CREATED).body(response);
     }
 
     @Operation(summary = "가족 답변 조회", description = "하나의 가족 질문에 대한 가족 답변을 조회합니다. 내 답변 여부는 isAnswered 필드로 반환합니다.")

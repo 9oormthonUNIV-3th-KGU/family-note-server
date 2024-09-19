@@ -59,7 +59,7 @@ public class FamilyQuestionController {
     @PostMapping
     public ResponseEntity<FamilyQuestionPersistResponse> createFamilyQuestion() {
         FamilyQuestionPersistResponse response = familyQuestionService.createFamilyQuestion();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(CREATED).body(response);
     }
 
     @Operation(summary = "가족 질문 조회", description = "가족 질문을 조회합니다. 생성된 시간 기준 최신순으로 정렬되어 반환합니다.")

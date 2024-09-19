@@ -42,7 +42,7 @@ public class BaseQuestionController {
             @Valid @RequestBody List<BaseQuestionCreateRequest> requests
     ) {
         BaseQuestionPersistListResponse response = baseQuestionService.saveBaseQuestions(requests);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(CREATED).body(response);
     }
 
 }
