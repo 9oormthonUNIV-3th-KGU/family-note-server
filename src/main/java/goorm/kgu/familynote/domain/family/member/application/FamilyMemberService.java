@@ -24,13 +24,15 @@ public class FamilyMemberService {
 
 	@Transactional
 	public FamilyPersistResponse saveFamilyMember(FamilyMemberCreateRequest request) {
-		Family family = familyService.createFamily();
+		Family family = familyService.createFamily(request.familyName());
 		List<Long> users = request.userIds();
 		users.forEach(userId -> {
 			User user = userService.getUserById(userId);
 			FamilyMember familyMember = FamilyMember.create(family, user);
 			familyMemberRepository.save(familyMember);
 		});
+		FamilyMember me = FamilyMember.create(family, userService.me());
+		familyMemberRepository.save(me);
 		return FamilyPersistResponse.of(family.getId());
 	}
 
