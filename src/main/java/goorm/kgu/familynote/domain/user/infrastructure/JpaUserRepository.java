@@ -10,5 +10,7 @@ import goorm.kgu.familynote.domain.user.domain.User;
 public interface JpaUserRepository extends JpaRepository<User, Long>{
 	Optional<User> findByNickname(String nickname);
 
+	boolean existsByNickname(String nickname);
+
 	List<User> findByNicknameContaining(String nickname);
 }

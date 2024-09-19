@@ -10,5 +10,7 @@ public interface UserRepository {
 
 	Optional<User> findByNickname(String nickname);
 
+	boolean existsByNickname(String nickname);
+
 	List<User> findByNicknameContaining(String nickname);
 }
