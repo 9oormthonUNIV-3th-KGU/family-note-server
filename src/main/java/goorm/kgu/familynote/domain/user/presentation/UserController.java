@@ -46,7 +46,7 @@ public class UserController {
 		@Valid @RequestBody UserCreateRequest request
 	) {
 		UserPersistResponse response = userService.createUser(request);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.status(CREATED).body(response);
 	}
 
 	@Operation(summary = "유저 검색", description = "닉네임 기반으로 유저를 검색합니다.")
