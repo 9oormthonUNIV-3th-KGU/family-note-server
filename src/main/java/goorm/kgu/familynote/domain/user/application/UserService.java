@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goorm.kgu.familynote.domain.user.domain.User;
 import goorm.kgu.familynote.domain.user.domain.UserRepository;
+import goorm.kgu.familynote.domain.user.presentation.exception.UserNicknameDuplicatedException;
 import goorm.kgu.familynote.domain.user.presentation.exception.UserNotAuthenticatedException;
 import goorm.kgu.familynote.domain.user.presentation.exception.UserNotFoundException;
 import goorm.kgu.familynote.domain.user.presentation.request.UserCreateRequest;
@@ -25,6 +26,7 @@ public class UserService {
 
 	@Transactional
 	public UserPersistResponse createUser(UserCreateRequest request) {
+		validateNicknameDuplication(request.nickname());
 		User user = User.create(
 			request.nickname(),
 			bCryptPasswordEncoder.encode(request.password())
@@ -66,5 +68,11 @@ public class UserService {
 	public User getUserById(Long id) {
 		return userRepository.findById(id)
 			.orElseThrow(UserNotFoundException::new);
+	}
+
+	private void validateNicknameDuplication(String nickname) {
+		if (userRepository.existsByNickname(nickname)) {
+			throw new UserNicknameDuplicatedException();
+		}
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.domain.user.application.UserService;
 import goorm.kgu.familynote.domain.user.presentation.request.UserCreateRequest;
 import goorm.kgu.familynote.domain.user.presentation.response.UserListResponse;
@@ -38,6 +39,11 @@ public class UserController {
 			responseCode = "201",
 			description = "유저 생성 성공",
 			content = @Content(schema = @Schema(implementation = UserPersistResponse.class))
+		),
+		@ApiResponse(
+			responseCode = "409",
+			description = "중복된 닉네임 입니다.",
+			content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
 		)
 	})
 	@ResponseStatus(CREATED)
