@@ -47,6 +47,11 @@ public class FamilyQuestionController {
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             ),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "가족 구성원이 아닙니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+            ),
+            @ApiResponse(
                     responseCode = "409",
                     description = "모든 기본 질문에 답변하여서 새로운 가족 질문을 생성할 수 없습니다.",
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
@@ -71,6 +76,11 @@ public class FamilyQuestionController {
                     responseCode = "200",
                     description = "가족 질문 조회 성공",
                     content = @Content(schema = @Schema(implementation = FamilyQuestionPageResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "가족 구성원이 아닙니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             )
     })
     @GetMapping("/{familyId}")

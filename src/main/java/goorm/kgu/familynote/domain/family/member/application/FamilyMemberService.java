@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.domain.family.member.application;
 
+import goorm.kgu.familynote.domain.family.member.presentation.exception.UserIsNotFamilyMemberException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,8 +37,18 @@ public class FamilyMemberService {
 		return FamilyPersistResponse.of(family.getId());
 	}
 
+	public void validateIsUserFamilyMember(User user, Family family) {
+		if (!isUserFamilyMember(user, family)) {
+			throw new UserIsNotFamilyMemberException();
+		}
+	}
+
 	public Integer countFamilyMemberByFamilyId(Long familyId) {
 		return familyMemberRepository.countFamilyMemberByFamilyId(familyId);
+	}
+
+	public Boolean isUserFamilyMember(User user, Family family) {
+		return familyMemberRepository.existsByUserAndFamily(user, family);
 	}
 
 }

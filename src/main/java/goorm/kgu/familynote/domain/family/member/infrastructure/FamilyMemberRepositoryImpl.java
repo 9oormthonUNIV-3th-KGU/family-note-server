@@ -1,5 +1,7 @@
 package goorm.kgu.familynote.domain.family.member.infrastructure;
 
+import goorm.kgu.familynote.domain.family.family.domain.Family;
+import goorm.kgu.familynote.domain.user.domain.User;
 import org.springframework.stereotype.Repository;
 
 import goorm.kgu.familynote.domain.family.member.domain.FamilyMember;
@@ -19,6 +21,11 @@ public class FamilyMemberRepositoryImpl implements FamilyMemberRepository {
 	@Override
 	public Integer countFamilyMemberByFamilyId(Long familyId) {
 		return jpaFamilyMemberRepository.countByFamilyId(familyId);
+	}
+
+	@Override
+	public Boolean existsByUserAndFamily(User user, Family family) {
+		return jpaFamilyMemberRepository.existsByUserAndFamily(user, family);
 	}
 
 }

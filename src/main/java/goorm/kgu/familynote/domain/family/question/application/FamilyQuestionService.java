@@ -14,6 +14,7 @@ import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQ
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.user.application.UserService;
+import goorm.kgu.familynote.domain.user.domain.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,9 @@ public class FamilyQuestionService {
 
     @Transactional
     public FamilyQuestionPersistResponse createFamilyQuestion(Long familyId) {
+        User user = userService.me();
         Family family = familyService.getFamilyById(familyId);
+        familyMemberService.validateIsUserFamilyMember(user, family);
         FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
 
         if (latestFamilyQuestion != null && !isEveryFamilyMemberAnswered(family, latestFamilyQuestion)) {
@@ -51,7 +54,10 @@ public class FamilyQuestionService {
 
     @Transactional
     public FamilyQuestionPageResponse getFamilyQuestions(Long familyId, int page, int size) {
+        User user = userService.me();
         Family family = familyService.getFamilyById(familyId);
+        familyMemberService.validateIsUserFamilyMember(user, family);
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<FamilyQuestion> familyQuestionsPage = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);
         List<FamilyQuestionResponse> familyQuestionResponses = familyQuestionsPage
