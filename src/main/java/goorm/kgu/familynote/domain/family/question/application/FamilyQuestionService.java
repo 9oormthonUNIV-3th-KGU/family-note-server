@@ -34,9 +34,8 @@ public class FamilyQuestionService {
     private final FamilyMemberService familyMemberService;
 
     @Transactional
-    public FamilyQuestionPersistResponse createFamilyQuestion() {
-        Long userId = userService.me().getId();
-        Family family = familyService.getFamilyByFamilyMember(userId);
+    public FamilyQuestionPersistResponse createFamilyQuestion(Long familyId) {
+        Family family = familyService.getFamilyById(familyId);
         FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
 
         if (latestFamilyQuestion != null && !isEveryFamilyMemberAnswered(family, latestFamilyQuestion)) {
@@ -51,9 +50,8 @@ public class FamilyQuestionService {
     }
 
     @Transactional
-    public FamilyQuestionPageResponse getFamilyQuestions(int page, int size) {
-        Long userId = userService.me().getId();
-        Family family = familyService.getFamilyByFamilyMember(userId);
+    public FamilyQuestionPageResponse getFamilyQuestions(Long familyId, int page, int size) {
+        Family family = familyService.getFamilyById(familyId);
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<FamilyQuestion> familyQuestionsPage = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);
         List<FamilyQuestionResponse> familyQuestionResponses = familyQuestionsPage
