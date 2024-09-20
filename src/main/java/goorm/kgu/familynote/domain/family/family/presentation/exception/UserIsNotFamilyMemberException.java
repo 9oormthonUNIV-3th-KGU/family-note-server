@@ -1,7 +1,7 @@
-package goorm.kgu.familynote.domain.family.member.presentation.exception;
+package goorm.kgu.familynote.domain.family.family.presentation.exception;
 
 import goorm.kgu.familynote.common.exception.CustomException;
-import static goorm.kgu.familynote.domain.family.member.presentation.exception.FamilyMemberExceptionCode.USER_IS_NOT_FAMILY_MEMBER;
+import static goorm.kgu.familynote.domain.family.family.presentation.exception.FamilyExceptionCode.USER_IS_NOT_FAMILY_MEMBER;
 
 public class UserIsNotFamilyMemberException extends CustomException {
     public UserIsNotFamilyMemberException() {

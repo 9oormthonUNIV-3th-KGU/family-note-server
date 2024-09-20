@@ -38,7 +38,7 @@ public class FamilyQuestionService {
     public FamilyQuestionPersistResponse createFamilyQuestion(Long familyId) {
         User user = userService.me();
         Family family = familyService.getFamilyById(familyId);
-        familyMemberService.validateIsUserFamilyMember(user, family);
+        familyService.validateIsMemberInFamily(family, user);
         FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
 
         if (latestFamilyQuestion != null && !isEveryFamilyMemberAnswered(family, latestFamilyQuestion)) {
@@ -56,7 +56,7 @@ public class FamilyQuestionService {
     public FamilyQuestionPageResponse getFamilyQuestions(Long familyId, int page, int size) {
         User user = userService.me();
         Family family = familyService.getFamilyById(familyId);
-        familyMemberService.validateIsUserFamilyMember(user, family);
+        familyService.validateIsMemberInFamily(family, user);
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<FamilyQuestion> familyQuestionsPage = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);

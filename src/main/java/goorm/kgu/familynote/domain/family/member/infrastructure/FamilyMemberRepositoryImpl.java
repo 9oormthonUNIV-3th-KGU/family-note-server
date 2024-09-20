@@ -23,9 +23,4 @@ public class FamilyMemberRepositoryImpl implements FamilyMemberRepository {
 		return jpaFamilyMemberRepository.countByFamilyId(familyId);
 	}
 
-	@Override
-	public Boolean existsByUserAndFamily(User user, Family family) {
-		return jpaFamilyMemberRepository.existsByUserAndFamily(user, family);
-	}
-
 }
