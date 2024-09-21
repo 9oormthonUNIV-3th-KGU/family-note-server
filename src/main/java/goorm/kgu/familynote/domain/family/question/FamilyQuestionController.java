@@ -65,7 +65,7 @@ public class FamilyQuestionController {
     @ResponseStatus(CREATED)
     @PostMapping("/{familyId}")
     public ResponseEntity<FamilyQuestionPersistResponse> createFamilyQuestion(
-            @PathVariable @NotNull @Positive @Parameter(description = "가족 ID") Long familyId) {
+            @Parameter(description = "가족 ID", example = "1", required = true) @PathVariable("familyId") @Positive Long familyId) {
         FamilyQuestionPersistResponse response = familyQuestionService.createFamilyQuestion(familyId);
         return ResponseEntity.status(CREATED).body(response);
     }
@@ -85,7 +85,7 @@ public class FamilyQuestionController {
     })
     @GetMapping("/{familyId}")
     public ResponseEntity<FamilyQuestionPageResponse> getFamilyQuestions(
-            @PathVariable @NotNull @Positive @Parameter(description = "가족 ID") Long familyId,
+            @Parameter(description = "가족 ID", example = "1", required = true) @PathVariable("familyId") @Positive Long familyId,
 
             @Parameter(description = "페이지 번호", example = "0", required = true)
             @RequestParam(defaultValue = "0")
