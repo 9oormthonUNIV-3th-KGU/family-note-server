@@ -5,5 +5,4 @@ public interface FamilyMemberRepository {
 	FamilyMember save(FamilyMember familyMember);
 
 	Integer countFamilyMemberByFamilyId(Long familyId);
-
 }

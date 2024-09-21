@@ -14,6 +14,7 @@ import goorm.kgu.familynote.domain.family.question.presentation.response.FamilyQ
 import goorm.kgu.familynote.domain.question.baseQuestion.application.BaseQuestionService;
 import goorm.kgu.familynote.domain.question.baseQuestion.domain.BaseQuestion;
 import goorm.kgu.familynote.domain.user.application.UserService;
+import goorm.kgu.familynote.domain.user.domain.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,10 @@ public class FamilyQuestionService {
     private final FamilyMemberService familyMemberService;
 
     @Transactional
-    public FamilyQuestionPersistResponse createFamilyQuestion() {
-        Long userId = userService.me().getId();
-        Family family = familyService.getFamilyByFamilyMember(userId);
+    public FamilyQuestionPersistResponse createFamilyQuestion(Long familyId) {
+        User user = userService.me();
+        Family family = familyService.getFamilyById(familyId);
+        familyService.validateIsMemberInFamily(family, user);
         FamilyQuestion latestFamilyQuestion = getLatestCreatedFamilyQuestion(family.getId());
 
         if (latestFamilyQuestion != null && !isEveryFamilyMemberAnswered(family, latestFamilyQuestion)) {
@@ -51,9 +53,11 @@ public class FamilyQuestionService {
     }
 
     @Transactional
-    public FamilyQuestionPageResponse getFamilyQuestions(int page, int size) {
-        Long userId = userService.me().getId();
-        Family family = familyService.getFamilyByFamilyMember(userId);
+    public FamilyQuestionPageResponse getFamilyQuestions(Long familyId, int page, int size) {
+        User user = userService.me();
+        Family family = familyService.getFamilyById(familyId);
+        familyService.validateIsMemberInFamily(family, user);
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<FamilyQuestion> familyQuestionsPage = getAllFamilyQuestionsByFamilyId(family.getId(), pageable);
         List<FamilyQuestionResponse> familyQuestionResponses = familyQuestionsPage

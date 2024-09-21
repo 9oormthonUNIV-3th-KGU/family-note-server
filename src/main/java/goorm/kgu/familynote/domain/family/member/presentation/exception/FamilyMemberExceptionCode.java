@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FamilyMemberExceptionCode implements ExceptionCode {
-
 	;
 
 	private final HttpStatus status;

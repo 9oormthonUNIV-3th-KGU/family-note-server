@@ -2,6 +2,7 @@ package goorm.kgu.familynote.domain.family.family.domain;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import goorm.kgu.familynote.domain.user.domain.User;
 import java.util.List;
 
 import goorm.kgu.familynote.common.domain.BaseTimeEntity;
@@ -41,6 +42,11 @@ public class Family extends BaseTimeEntity {
 		return Family.builder()
 			.familyName(familyName)
 			.build();
+	}
+
+	public Boolean hasUser(User user) {
+		return familyMembers.stream()
+				.anyMatch(familyMember -> familyMember.getUser().equals(user));
 	}
 
 }

@@ -1,5 +1,7 @@
 package goorm.kgu.familynote.domain.family.member.infrastructure;
 
+import goorm.kgu.familynote.domain.family.family.domain.Family;
+import goorm.kgu.familynote.domain.user.domain.User;
 import org.springframework.stereotype.Repository;
 
 import goorm.kgu.familynote.domain.family.member.domain.FamilyMember;

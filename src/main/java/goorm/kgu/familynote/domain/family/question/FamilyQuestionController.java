@@ -12,11 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +47,11 @@ public class FamilyQuestionController {
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             ),
             @ApiResponse(
+                    responseCode = "403",
+                    description = "가족 구성원이 아닙니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+            ),
+            @ApiResponse(
                     responseCode = "409",
                     description = "모든 기본 질문에 답변하여서 새로운 가족 질문을 생성할 수 없습니다.",
                     content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
@@ -56,9 +63,10 @@ public class FamilyQuestionController {
             )
     })
     @ResponseStatus(CREATED)
-    @PostMapping
-    public ResponseEntity<FamilyQuestionPersistResponse> createFamilyQuestion() {
-        FamilyQuestionPersistResponse response = familyQuestionService.createFamilyQuestion();
+    @PostMapping("/{familyId}")
+    public ResponseEntity<FamilyQuestionPersistResponse> createFamilyQuestion(
+            @Parameter(description = "가족 ID", example = "1", required = true) @PathVariable("familyId") @Positive Long familyId) {
+        FamilyQuestionPersistResponse response = familyQuestionService.createFamilyQuestion(familyId);
         return ResponseEntity.status(CREATED).body(response);
     }
 
@@ -68,10 +76,17 @@ public class FamilyQuestionController {
                     responseCode = "200",
                     description = "가족 질문 조회 성공",
                     content = @Content(schema = @Schema(implementation = FamilyQuestionPageResponse.class))
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "가족 구성원이 아닙니다.",
+                    content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
             )
     })
-    @GetMapping
+    @GetMapping("/{familyId}")
     public ResponseEntity<FamilyQuestionPageResponse> getFamilyQuestions(
+            @Parameter(description = "가족 ID", example = "1", required = true) @PathVariable("familyId") @Positive Long familyId,
+
             @Parameter(description = "페이지 번호", example = "0", required = true)
             @RequestParam(defaultValue = "0")
             @PositiveOrZero int page,
@@ -80,7 +95,7 @@ public class FamilyQuestionController {
             @RequestParam(defaultValue = "5")
             @Positive int size
     ) {
-        FamilyQuestionPageResponse response = familyQuestionService.getFamilyQuestions(page, size);
+        FamilyQuestionPageResponse response = familyQuestionService.getFamilyQuestions(familyId, page, size);
         return ResponseEntity.ok(response);
     }
 

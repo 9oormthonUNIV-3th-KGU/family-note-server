@@ -1,5 +1,6 @@
 package goorm.kgu.familynote.domain.family.family.application;
 
+import goorm.kgu.familynote.domain.family.family.presentation.exception.UserIsNotFamilyMemberException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -49,9 +50,10 @@ public class FamilyService {
 			.orElseThrow(FamilyNotFoundException::new);
 	}
 
-	public Family getFamilyByFamilyMember(Long userId) {
-		Family family = familyRepository.findFamilyByMemberUserId(userId);
-		return family;
+	public void validateIsMemberInFamily(Family family, User user) {
+		if (!family.hasUser(user)) {
+			throw new UserIsNotFamilyMemberException();
+		}
 	}
 
 }
