@@ -26,4 +26,5 @@ public class RefreshToken {
 			.userId(userId)
 			.build();
 	}
+
 }
