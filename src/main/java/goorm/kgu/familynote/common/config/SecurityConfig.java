@@ -74,7 +74,7 @@ public class SecurityConfig {
 			CorsConfiguration config = new CorsConfiguration();
 			config.setAllowedHeaders(Collections.singletonList("*"));
 			config.setAllowedMethods(Collections.singletonList("*"));
-			config.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://211.188.49.236:5173"));
+			config.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://211.188.49.236:5173", "https://familynote.ezbooks.kr/"));
 			config.setAllowCredentials(true);
 			return config;
 		};
