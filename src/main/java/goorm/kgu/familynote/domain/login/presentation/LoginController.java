@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import goorm.kgu.familynote.common.exception.ExceptionResponse;
 import goorm.kgu.familynote.domain.login.application.LoginService;
 import goorm.kgu.familynote.domain.login.presentation.request.LoginRequest;
+import goorm.kgu.familynote.domain.login.presentation.request.RefreshTokenRequest;
+import goorm.kgu.familynote.domain.login.presentation.response.AccessTokenResponse;
 import goorm.kgu.familynote.domain.login.presentation.response.LoginSucceedResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -49,6 +51,27 @@ public class LoginController {
 		@Valid @RequestBody LoginRequest request
 	) {
 		LoginSucceedResponse response = loginService.login(request);
+		return ResponseEntity.ok(response);
+	}
+
+	@Operation(summary = "토큰 재발급", description = "리프레시 토큰을 이용해 새로운 액세스 토큰을 발급합니다.")
+	@ApiResponses({
+		@ApiResponse(
+			responseCode = "200",
+			description = "토큰 재발급 성공",
+			content = @Content(schema = @Schema(implementation = AccessTokenResponse.class))
+		),
+		@ApiResponse(
+			responseCode = "404",
+			description = "유효한 토큰을 찾을 수 없습니다.",
+			content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+		)
+	})
+	@PostMapping("/reissue")
+	public ResponseEntity<AccessTokenResponse> reissue(
+		@Valid @RequestBody RefreshTokenRequest request
+	) {
+		AccessTokenResponse response = loginService.reissue(request);
 		return ResponseEntity.ok(response);
 	}
 }
